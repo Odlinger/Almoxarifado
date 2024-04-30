@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Estoque</title>
+</head>
+<body>
+    <h1>Estoque</h1>
+    <div id="estoque"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fazer uma solicitação AJAX para a API
+            axios.get('https://script.google.com/macros/s/1nraRLkBi3xf8jARACzQs5X-wpsMwTpH5zqMaJAxWcH_fZ0_q-r8iyBSG/exec')
+                .then(function(response) {
+                    // Manipular os dados recebidos
+                    var data = response.data;
+                    var estoqueElement = document.getElementById('estoque');
+                    
+                    // Criar uma lista de produtos
+                    var productList = '<ul>';
+                    data.forEach(function(item) {
+                        productList += '<li>' + item.produto + ' - Quantidade: ' + item.quantidade + ' - Categoria: ' + item.categoria + '</li>';
+                    });
+                    productList += '</ul>';
+                    
+                    // Adicionar a lista à página HTML
+                    estoqueElement.innerHTML = productList;
+                })
+                .catch(function(error) {
+                    console.error('Erro ao recuperar os dados do estoque:', error);
+                });
+        });
+    </script>
+</body>
+</html>
